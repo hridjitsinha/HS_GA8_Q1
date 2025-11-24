@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Fundamentals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+    <style>
+        .reveal .slides section .fragment.highlight-current-blue {
+            opacity: 1;
+            visibility: inherit;
+        }
+        .reveal .slides section .fragment.highlight-current-blue.current-fragment {
+            color: #42affa;
+        }
+        .email-footer {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            font-size: 0.5em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+                <h1>Data Science Fundamentals</h1>
+                <h3>From Theory to Practice</h3>
+                <p style="margin-top: 50px;">
+                    <small>Contact: <a href="mailto:23f2004319@ds.study.iitm.ac.in">23f2004319@ds.study.iitm.ac.in</a></small>
+                </p>
+                <aside class="notes">
+                    Welcome everyone! Today we'll explore fundamental concepts in data science, including statistical analysis, machine learning basics, and financial mathematics. This presentation will take about 20 minutes.
+                </aside>
+            </section>
+
+            <!-- Markdown Slide -->
+            <section data-markdown>
+                <textarea data-template>
+                    ## What is Data Science?
+                    
+                    Data Science combines multiple disciplines:
+                    
+                    - **Statistics**: Understanding data distributions and patterns
+                    - **Computer Science**: Algorithms and computational thinking
+                    - **Domain Expertise**: Real-world application knowledge
+                    - **Machine Learning**: Predictive modeling and automation
+                    
+                    > "Data is the new oil of the digital economy"
+                </textarea>
+                <aside class="notes">
+                    Data science is inherently interdisciplinary. Emphasize that success requires balancing all three areas. Ask the audience about their background in each area.
+                </aside>
+            </section>
+
+            <!-- Fragments Slide -->
+            <section>
+                <h2>The Data Science Process</h2>
+                <ol>
+                    <li class="fragment fade-in-then-semi-out">Define the Problem</li>
+                    <li class="fragment fade-in-then-semi-out">Collect Data</li>
+                    <li class="fragment fade-in-then-semi-out">Clean & Preprocess</li>
+                    <li class="fragment fade-in-then-semi-out">Exploratory Analysis</li>
+                    <li class="fragment fade-in-then-semi-out">Model Building</li>
+                    <li class="fragment fade-in-then-semi-out">Evaluation & Deployment</li>
+                </ol>
+                <p class="fragment fade-up" style="margin-top: 30px; color: #42affa;">
+                    <strong>Remember: It's an iterative process!</strong>
+                </p>
+                <aside class="notes">
+                    Walk through each step slowly. Emphasize that steps 3-6 often need to be repeated multiple times. Share a real-world example where iteration was necessary.
+                </aside>
+            </section>
+
+            <!-- Code Sample - Python -->
+            <section>
+                <h2>Python for Data Analysis</h2>
+                <pre><code class="python" data-trim data-line-numbers="1-2|4-6|8-10">
+import pandas as pd
+import numpy as np
+
+# Load and explore data
+df = pd.read_csv('sales_data.csv')
+print(df.head())
+
+# Calculate basic statistics
+mean_sales = df['revenue'].mean()
+std_sales = df['revenue'].std()
+
+# Detect outliers using IQR method
+Q1 = df['revenue'].quantile(0.25)
+Q3 = df['revenue'].quantile(0.75)
+IQR = Q3 - Q1
+outliers = df[(df['revenue'] < Q1 - 1.5*IQR) | 
+              (df['revenue'] > Q3 + 1.5*IQR)]
+                </code></pre>
+                <aside class="notes">
+                    This is a common workflow for initial data exploration. Highlight the importance of understanding your data before modeling. The IQR method is robust for outlier detection.
+                </aside>
+            </section>
+
+            <!-- Code Sample - SQL -->
+            <section>
+                <h2>SQL for Data Extraction</h2>
+                <pre><code class="sql" data-trim data-line-numbers>
+-- Analyze customer purchase patterns
+SELECT 
+    c.customer_id,
+    c.customer_name,
+    COUNT(o.order_id) as total_orders,
+    SUM(o.total_amount) as lifetime_value,
+    AVG(o.total_amount) as avg_order_value
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+WHERE o.order_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+GROUP BY c.customer_id, c.customer_name
+HAVING total_orders > 5
+ORDER BY lifetime_value DESC
+LIMIT 100;
+                </code></pre>
+                <aside class="notes">
+                    SQL is essential for data extraction. This query identifies high-value customers from the past year. Discuss the importance of efficient queries when working with large datasets.
+                </aside>
+            </section>
+
+            <!-- Mathematical Equations -->
+            <section>
+                <h2>Financial Mathematics</h2>
+                <div class="fragment">
+                    <h4>Compound Interest Formula</h4>
+                    <p>$$A = P\left(1 + \frac{r}{n}\right)^{nt}$$</p>
+                    <p style="font-size: 0.7em;">Where: A = Final amount, P = Principal, r = Rate, n = Compounding frequency, t = Time</p>
+                </div>
+                <div class="fragment" style="margin-top: 40px;">
+                    <h4>Sharpe Ratio (Risk-Adjusted Return)</h4>
+                    <p>$$S = \frac{R_p - R_f}{\sigma_p}$$</p>
+                    <p style="font-size: 0.7em;">Where: R<sub>p</sub> = Portfolio return, R<sub>f</sub> = Risk-free rate, σ<sub>p</sub> = Standard deviation</p>
+                </div>
+                <aside class="notes">
+                    These formulas are fundamental in financial analysis. The compound interest formula shows exponential growth. The Sharpe ratio helps compare investment performance adjusted for risk. Higher Sharpe ratio indicates better risk-adjusted returns.
+                </aside>
+            </section>
+
+            <!-- More Math - Statistics -->
+            <section>
+                <h2>Statistical Foundations</h2>
+                <div class="fragment">
+                    <h4>Normal Distribution PDF</h4>
+                    <p>$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$$</p>
+                </div>
+                <div class="fragment" style="margin-top: 30px;">
+                    <h4>Linear Regression (OLS)</h4>
+                    <p>$$\hat{\beta} = (X^TX)^{-1}X^Ty$$</p>
+                </div>
+                <div class="fragment" style="margin-top: 30px;">
+                    <h4>Mean Squared Error</h4>
+                    <p>$$MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$</p>
+                </div>
+                <aside class="notes">
+                    These are core statistical concepts. The normal distribution is ubiquitous in nature and statistics. Linear regression via OLS is one of the most widely used modeling techniques. MSE is a standard metric for regression model evaluation.
+                </aside>
+            </section>
+
+            <!-- Machine Learning Code -->
+            <section>
+                <h2>Building a Predictive Model</h2>
+                <pre><code class="python" data-trim data-line-numbers>
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Train model
+model = RandomForestClassifier(n_estimators=100, max_depth=10)
+model.fit(X_train, y_train)
+
+# Evaluate
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred))
+
+# Feature importance
+importance = pd.DataFrame({
+    'feature': X.columns,
+    'importance': model.feature_importances_
+}).sort_values('importance', ascending=False)
+                </code></pre>
+                <aside class="notes">
+                    Random Forest is excellent for both classification and regression. Always split your data to avoid overfitting. Feature importance helps interpret your model and guide feature engineering.
+                </aside>
+            </section>
+
+            <!-- Animated Conclusion -->
+            <section data-background-gradient="linear-gradient(to bottom, #17b2c3, #283b95)">
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li class="fragment highlight-current-blue">Master both statistics and programming</li>
+                    <li class="fragment highlight-current-blue">Clean data is critical for success</li>
+                    <li class="fragment highlight-current-blue">Start simple, iterate to complex models</li>
+                    <li class="fragment highlight-current-blue">Always validate with held-out data</li>
+                    <li class="fragment highlight-current-blue">Communication is as important as analysis</li>
+                </ul>
+                <p class="fragment fade-in" style="margin-top: 50px;">
+                    <strong>Questions?</strong><br>
+                    <small>Email: 23f2004319@ds.study.iitm.ac.in</small>
+                </p>
+                <aside class="notes">
+                    Summarize the main points. Open the floor for questions. Be prepared to discuss specific tools, career paths, or learning resources. Thank the audience for their attention.
+                </aside>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/math/math.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            slideNumber: true,
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+        });
+    </script>
+</body>
+</html>
